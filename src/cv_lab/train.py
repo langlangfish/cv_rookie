@@ -14,6 +14,37 @@ from .data import get_dataloaders
 from .models import get_model
 
 
+class EarlyStopping:
+    """Early stops the training if validation metric doesn't improve after a given patience."""
+
+    def __init__(self, patience: int = 5, min_delta: float = 0.0, mode: str = "max"):
+        self.patience = patience
+        self.min_delta = min_delta
+        self.mode = mode
+        self.counter = 0
+        self.best_score = None
+        self.early_stop = False
+
+    def __call__(self, val_metric: float) -> bool:
+        if self.patience <= 0:
+            return False
+
+        score = val_metric if self.mode == "max" else -val_metric
+
+        if self.best_score is None:
+            self.best_score = score
+        elif score <= self.best_score + self.min_delta:
+            self.counter += 1
+            print(f"  [EarlyStopping] No improvement for {self.counter}/{self.patience} epochs.")
+            if self.counter >= self.patience:
+                self.early_stop = True
+        else:
+            self.best_score = score
+            self.counter = 0
+
+        return self.early_stop
+
+
 def build_optimizer(model: nn.Module, cfg: TrainConfig):
     """Create optimizer from config."""
     if cfg.optimizer == "adam":
@@ -149,6 +180,7 @@ def train(cfg: TrainConfig) -> dict:
     # Training loop
     best_acc = 0.0
     history = []
+    early_stopping = EarlyStopping(patience=cfg.patience, mode="max")
 
     for epoch in range(1, cfg.epochs + 1):
         t0 = time.time()
@@ -178,11 +210,16 @@ def train(cfg: TrainConfig) -> dict:
             f"LR: {lr:.6f}  Time: {elapsed:.1f}s"
         )
 
-        # Save best
+        # Save best model checkpoint
         if val_metrics["val_acc"] > best_acc:
             best_acc = val_metrics["val_acc"]
             torch.save(model.state_dict(), run_dir / "best_model.pt")
             print(f"  → New best! ({best_acc:.2f}%)")
+
+        # Early stopping check
+        if early_stopping(val_metrics["val_acc"]):
+            print(f"\n⚠️ 早停触发：验证集精度连续 {cfg.patience} 轮未提升，提前终止训练！")
+            break
 
     # Save final
     torch.save(model.state_dict(), run_dir / "last_model.pt")

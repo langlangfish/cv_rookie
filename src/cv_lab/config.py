@@ -31,6 +31,7 @@ class TrainConfig:
     weight_decay: float = 1e-4
     optimizer: str = "adam"
     scheduler: str = "cosine"
+    patience: int = 5  # Early stopping patience (0 to disable)
 
     # --- Augmentation ---
     use_augmentation: bool = True

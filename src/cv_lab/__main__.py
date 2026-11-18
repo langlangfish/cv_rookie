@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--lr", type=float, default=1e-3, help="Learning rate")
     parser.add_argument("--optimizer", type=str, default="adam", help="Optimizer")
     parser.add_argument("--scheduler", type=str, default="cosine", help="LR scheduler")
+    parser.add_argument("--patience", type=int, default=5, help="Early stopping patience (0 to disable)")
     parser.add_argument("--experiment-name", type=str, default="default", help="Experiment name")
     parser.add_argument("--device", type=str, default="auto", help="Device")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
@@ -34,6 +35,7 @@ def main():
         lr=args.lr,
         optimizer=args.optimizer,
         scheduler=args.scheduler,
+        patience=args.patience,
         experiment_name=args.experiment_name,
         device=args.device,
         seed=args.seed,
