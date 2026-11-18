@@ -1,0 +1,21 @@
+[project]
+name = "cv-lab"
+version = "0.1.0"
+description = "Computer vision experiment framework for learning and rapid prototyping"
+readme = "README.md"
+authors = [
+    { name = "liuly", email = "" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.11.2",
+    "torch>=2.15.0",
+    "torchvision>=0.29.2",
+]
+
+[project.scripts]
+cv-lab = "cv_lab:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
