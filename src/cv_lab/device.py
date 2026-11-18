@@ -33,7 +33,7 @@ def device_summary(device: torch.device | None = None) -> str:
     lines = [f"Device : {device}"]
     if device.type == "cuda":
         lines.append(f"GPU    : {torch.cuda.get_device_name(device)}")
-        mem = torch.cuda.get_device_properties(device).total_mem / (1024**3)
+        mem = torch.cuda.get_device_properties(device).total_memory / (1024**3)
         lines.append(f"VRAM   : {mem:.1f} GB")
     elif device.type == "mps":
         lines.append("GPU    : Apple Silicon (MPS)")
