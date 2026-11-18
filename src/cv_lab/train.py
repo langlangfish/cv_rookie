@@ -122,7 +122,10 @@ def train(cfg: TrainConfig) -> dict:
 
     # Device
     device = get_device(cfg.device)
-    print(f"Using device: {device}")
+    from .device import device_summary
+    print("-" * 50)
+    print(device_summary(device))
+    print("-" * 50)
 
     # Data
     train_loader, test_loader = get_dataloaders(cfg)
