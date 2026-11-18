@@ -1,25 +1,25 @@
-# Python-generated files
+# Byte-compiled / optimized
 __pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+*.py[cod]
+*$py.class
 
-# Virtual environments
-.venv
+# Virtual environment
+.venv/
+env/
+venv/
 
-# Data downloads
+# Data downloads (Never commit dataset images/archives)
 data/
 
-# Experiment outputs
+# Experiment outputs (Never commit checkpoints, weights, run logs)
 runs/
+checkpoints/
 
-# IDE
+# IDE & Editor
 .vscode/
 .idea/
 
-# OS
+# OS artifacts
 .DS_Store
 Thumbs.db
 

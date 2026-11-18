@@ -1,6 +1,6 @@
-# CV Lab 🔬
+# cv_rookie 🔬 (CV Lab)
 
-A lightweight computer vision experiment framework built on PyTorch.
+my_first cv project — A lightweight computer vision experiment framework built on PyTorch.
 Designed for learning and rapid prototyping on CIFAR-10 and beyond.
 
 ## Quick Start
@@ -67,12 +67,11 @@ uv run python -m cv_lab --model my_model
 
 ## GPU Note
 
-This project is configured for **CPU-only** locally. For GPU training, use
-one of the cloud platforms listed in the project documentation, then install
-the CUDA version of PyTorch:
+This project is configured for **CPU-only** locally. For GPU training (e.g. on Kaggle / Colab), use
+CUDA-enabled PyTorch:
 
 ```bash
-# On a GPU machine, replace the CPU torch with CUDA torch:
+# On a GPU machine, install CUDA PyTorch:
 uv remove torch torchvision
 uv add torch torchvision --index-url https://download.pytorch.org/whl/cu124
 ```
