@@ -26,7 +26,7 @@ def main():
 
     # 2. Configure experiment
     cfg = TrainConfig(
-        model="simple_cnn",
+        model="resnet_small",
         epochs=5,              # Quick test; increase for better results
         batch_size=128,
         lr=1e-3,
